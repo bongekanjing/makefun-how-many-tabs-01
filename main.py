@@ -5,14 +5,27 @@
 # surprise, not round enough to look invented.
 import os
 
-COUNT = "47"
+# The tab count, counted once and kept as a plain digit string: 47.
+TAB_COUNT = "47"
+
+OUTPUT_PATH = "/output/entry.txt"
+
+
+def tab_count():
+    """Return the tab count as a short digit string."""
+    text = TAB_COUNT.strip()
+    assert text.isdigit() and 1 <= len(text) <= 5
+    return text
+
+
+def write_entry(path, text):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
+
 
 def main():
-    os.makedirs("/output", exist_ok=True)
-    text = COUNT.strip()
-    assert text.isdigit() and 1 <= len(text) <= 5
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(text)
+    write_entry(OUTPUT_PATH, tab_count())
 
 if __name__ == "__main__":
     main()
